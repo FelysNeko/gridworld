@@ -1,6 +1,6 @@
 # GridWorld
 
-Hand written implementation of basic RL algorithms in a gridworld.
+Handwritten implementation of basic RL algorithms in a gridworld.
 
 ## License
 
