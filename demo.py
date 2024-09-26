@@ -1,10 +1,11 @@
-from gridworld.environ import GridWorld
+from gridworld.iter.policy import PolicyIter
 
-env = GridWorld([
+env = PolicyIter([
     [0, 0, 0, -1],
     [0, -1, 0, 0],
-    [0, -1, 6, 0]
+    [0, -1, 10, 0]
 ])
 
 if __name__ == '__main__':
-    pass
+    env.solve()
+    print(env.policy)
