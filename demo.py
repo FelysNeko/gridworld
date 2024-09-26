@@ -1,11 +1,11 @@
-from gridworld.iter.policy import PolicyIter
+from gridworld.iter import ValueIter, PolicyIter
 
-env = PolicyIter([
+grid = [
     [0, 0, 0, -10],
     [0, -10, 0, 0],
     [0, -1, 10, 0]
-])
+]
 
 if __name__ == '__main__':
-    env.solve()
-    print(env.policy)
+    ValueIter(grid).render()
+    PolicyIter(grid).render()

@@ -5,18 +5,19 @@ import numpy as np
 from gridworld.environ import GridWorld
 
 
-class PolicyIter(GridWorld):
+class ValueIter(GridWorld):
     def __init__(self, reward: List[List[int]], gamma: float = 0.9):
         super().__init__(reward, gamma)
 
     def flush_v(self):
         for state in self.states():
-            expected_state_value = 0
-            for action, prob in enumerate(self.policy[state]):
+            action_values = []
+            for action in range(5):
                 ns = self.move(state, action)
                 r = self.rewards[ns]
-                expected_state_value += prob * (r + self.gamma * self.V[ns])
-            self.V[state] = expected_state_value
+                value = r + self.gamma * self.V[ns]
+                action_values.append(value)
+            self.V[state] = max(action_values)
 
     def dp_update_v(self, threshold: float = 0.001):
         while True:
@@ -39,9 +40,5 @@ class PolicyIter(GridWorld):
             self.policy[state] = new_policy
 
     def solve(self):
-        while True:
-            old_p = self.policy.copy()
-            self.dp_update_v()
-            self.argmax_policies()
-            if np.array_equal(old_p, self.policy):
-                break
+        self.dp_update_v()
+        self.argmax_policies()
